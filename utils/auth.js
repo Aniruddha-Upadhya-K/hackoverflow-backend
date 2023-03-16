@@ -4,7 +4,11 @@ require('dotenv').config();
 const hashPassword = async (password) => {
     return bcrypt.hash(password, 10)
         .then(res => res)
-        .catch(error => console.log(error));
+        .catch(error => error);
+}
+
+const comparePassword = async (password, comparePass) => {
+    return bcrypt.compare(password, comparePass)
 }
 
 const { v4: uuidv4 } = require('uuid');
@@ -14,4 +18,4 @@ const generateUUID = ()=>{
 }
 
 
-module.exports = {hashPassword, generateUUID};
+module.exports = {hashPassword, generateUUID, comparePassword};

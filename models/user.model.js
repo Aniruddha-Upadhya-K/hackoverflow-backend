@@ -15,7 +15,12 @@ class User extends Model {
 
     static async findUserByID(id) {
         const user = await User.findOne({ where: { contact: id } });
-        console.log(user);
+        if (user) {
+            return user.dataValues;
+        }
+        else{
+            return false;
+        }
     }
 };
 
