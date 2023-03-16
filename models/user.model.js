@@ -1,18 +1,9 @@
 const { pool } = require("../databases/db.config");
-const { DataTypes, Model } = require('sequelize')
+const { DataTypes, Model } = require('sequelize');
+const { hashPassword, generateUUID } = require('../utils/auth');
 
 
 class User extends Model {
-    async createUser(data) {
-        this.fullName = data.name;
-        this.email = data.email;
-        this.contact = data.contact;
-        this.password = data.password;
-        this.hashPassword = data.password;
-        User.create()
-        console.log("User Created");
-    }
-
     static async deleteUserByID(id) {
         await User.destroy({
             where: {
@@ -24,18 +15,24 @@ class User extends Model {
 
     static async findUserByID(id) {
         const user = await User.findOne({ where: { contact: id } });
-        console.log(user.dataValues);
+        console.log(user);
     }
 };
 
 User.init({
-    fullName: {
+    FullName: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    uuid: {
+        type: DataTypes.STRING,
+        unique: true,
         allowNull: false
     },
     contact: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     email: {
         type: DataTypes.STRING,
