@@ -1,0 +1,23 @@
+{
+  "name": "hackoverflowserver",
+  "version": "1.0.0",
+  "description": "Server\r     controllers\r         user.controller(signin, signout, register)\r         employee.experience.controller(allexpriences, newexperience, deleteexperience)\r         company.experience.controller(approve, reject)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "sequelize": "^6.29.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
