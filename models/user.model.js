@@ -3,8 +3,13 @@ const { DataTypes, Model } = require('sequelize')
 
 
 class User extends Model {
-    async createUser() {
-        await this.save();
+    async createUser(data) {
+        this.fullName = data.name;
+        this.email = data.email;
+        this.contact = data.contact;
+        this.password = data.password;
+        this.hashPassword = data.password;
+        User.create()
         console.log("User Created");
     }
 
@@ -24,7 +29,7 @@ class User extends Model {
 };
 
 User.init({
-    FullName: {
+    fullName: {
         type: DataTypes.STRING,
         allowNull: false
     },
