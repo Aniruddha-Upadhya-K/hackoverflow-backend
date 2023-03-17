@@ -13,9 +13,11 @@ class Review extends Model {
     }
 
     static async getAllReviews(id) {
-        const review = await Review.findAll({ where: { uuid } })
-        if (review.length !== 0) {
-            return review.dataValues;
+        const reviews = await Review.findAll({ where: { Employee_UUID: id } })
+        if (reviews.length !== 0) {
+            return reviews.map((review, index)=>{
+                return review.dataValues;
+            });
         }
         else {
             return false;
@@ -37,8 +39,7 @@ Review.init({
     },
     Review_status: {
         type: DataTypes.STRING,
-        allowNull: false,
-        default: "pending"
+        defaultValue: "pending"
     }
 }, { sequelize: pool })
 
