@@ -16,5 +16,4 @@ const pool = new Sequelize(
         }
     }
 );
-
-module.exports = {pool};
+module.exports = { pool };

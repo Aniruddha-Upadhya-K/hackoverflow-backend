@@ -3,13 +3,15 @@ const { generateUUID, hashPassword, comparePassword } = require('../utils/auth')
 
 const signUp = async (req, res) => {
     const { name, email, contact, password } = req.body;
+    console.log(req.body);
     try {
         const hashedPassword = await hashPassword(password);
         const uuid = generateUUID();
-        const [user, created] = await User.findOrCreate(
+        console.log(req.file);
+        const [_, created] = await User.findOrCreate(
             {
                 where: { contact },
-                defaults: { FullName: name, email, contact, password: hashedPassword, uuid: `@e=${uuid}` }
+                defaults: { FullName: name, email, contact, password: hashedPassword, uuid: `@e=${uuid}`, image_path: req.file }
             });
         if (created) {
             res.status(200).json({ message: "success", data: { name, email, contact, uuid } });
@@ -30,7 +32,7 @@ const signIn = async (req, res) => {
         const user = await User.findUserByID(contact)
         if (user) {
             if (await comparePassword(password, user.password)) {
-                res.status(200).json({ message: "success", data: { name: user.FullName, email: user.email, contact, uuid: user.uuid } })
+                res.status(200).json({ message: "success", data: { name: user.FullName, email: user.email, contact, uuid: user.uuid }, type:user.type })
             }
             else {
                 res.status(200).json({ message: "Invalid Password!" })

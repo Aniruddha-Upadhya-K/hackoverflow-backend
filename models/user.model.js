@@ -18,7 +18,17 @@ class User extends Model {
         if (user) {
             return user.dataValues;
         }
-        else{
+        else {
+            return false;
+        }
+    }
+
+    static async getUUID(contact) {
+        const user = await User.findOne({ where: { contact } });
+        if (user) {
+            return user.dataValues.uuid;
+        }
+        else {
             return false;
         }
     }
@@ -44,6 +54,11 @@ User.init({
         allowNull: false
     },
     password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    image_path: { type: DataTypes.STRING, },
+    user_type: {
         type: DataTypes.STRING,
         allowNull: false
     }
