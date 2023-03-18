@@ -10,7 +10,7 @@ const signUp = async (req, res) => {
         const [_, created] = await User.findOrCreate(
             {
                 where: { contact },
-                defaults: { FullName: name, email, contact, password: hashedPassword, uuid: `@e=${uuid}`, image_path: req.file, user_type: type }
+                defaults: { FullName: name, email, contact, password: hashedPassword, uuid, image_path: req.file, user_type: type }
             });
         if (created) {
             res.status(200).json({ message: "success", data: { name, email, contact, uuid } });

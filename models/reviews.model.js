@@ -23,6 +23,17 @@ class Review extends Model {
             return false;
         }
     }
+    static async getAllClaims(id) {
+        const reviews = await Review.findAll({ where: { Company_UUID: id } })
+        if (reviews.length !== 0) {
+            return reviews.map((review, index)=>{
+                return review.dataValues;
+            });
+        }
+        else {
+            return false;
+        }
+    }
 }
 
 Review.init({

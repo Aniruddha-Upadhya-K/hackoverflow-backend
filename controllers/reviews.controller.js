@@ -11,10 +11,16 @@ async function socket(io) {
 
             socket.on("get_reviews", async (data) => {
                 try {
-                    const reviews = await Review.getAllReviews(data.uuid);
-                    console.log(data.uuid);
-                    if (reviews) {
-                        socket.emit("data", ({ message: "success", data: reviews }))
+                    var result;
+                    console.log();
+                    if (data.type === "user") {
+                        result = await Review.getAllReviews(data.uuid)
+                    }
+                    else{
+                        result = await Review.getAllClaims(data.uuid)
+                    }
+                    if (result) {
+                        socket.emit("data", ({ message: "success", data: result }))
                     }
                 } catch (error) {
                     console.error(error)
@@ -22,7 +28,6 @@ async function socket(io) {
             });
 
         })
-        console.log(sockets_map);
     })
 }
 const addReview = async (req, res) => {
